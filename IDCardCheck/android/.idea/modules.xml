@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/@react-native-community/async-storage/android/@react-native-community_async-storage.iml" filepath="$PROJECT_DIR$/../node_modules/@react-native-community/async-storage/android/@react-native-community_async-storage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/@react-native-community/image-editor/android/@react-native-community_image-editor.iml" filepath="$PROJECT_DIR$/../node_modules/@react-native-community/image-editor/android/@react-native-community_image-editor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SourceCore.iml" filepath="$PROJECT_DIR$/SourceCore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/expo-app-loader-provider/android/expo-app-loader-provider.iml" filepath="$PROJECT_DIR$/../node_modules/expo-app-loader-provider/android/expo-app-loader-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/expo-constants/android/expo-constants.iml" filepath="$PROJECT_DIR$/../node_modules/expo-constants/android/expo-constants.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/expo-face-detector/android/expo-face-detector.iml" filepath="$PROJECT_DIR$/../node_modules/expo-face-detector/android/expo-face-detector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/expo-file-system/android/expo-file-system.iml" filepath="$PROJECT_DIR$/../node_modules/expo-file-system/android/expo-file-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/expo-permissions/android/expo-permissions.iml" filepath="$PROJECT_DIR$/../node_modules/expo-permissions/android/expo-permissions.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-camera/android/react-native-camera.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-camera/android/react-native-camera.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-code-push/android/app/react-native-code-push.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-code-push/android/app/react-native-code-push.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-device-info/android/react-native-device-info.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-device-info/android/react-native-device-info.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-fbsdk/android/react-native-fbsdk.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-fbsdk/android/react-native-fbsdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-fs/android/react-native-fs.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-fs/android/react-native-fs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-gesture-handler/android/react-native-gesture-handler.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-gesture-handler/android/react-native-gesture-handler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-google-signin/android/react-native-google-signin.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-google-signin/android/react-native-google-signin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-linear-gradient/android/react-native-linear-gradient.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-linear-gradient/android/react-native-linear-gradient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-maps/lib/android/react-native-maps.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-maps/lib/android/react-native-maps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-network-info/android/react-native-network-info.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-network-info/android/react-native-network-info.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-onesignal/android/react-native-onesignal.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-onesignal/android/react-native-onesignal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-share/android/react-native-share.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-share/android/react-native-share.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-video/android-exoplayer/react-native-video.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-video/android-exoplayer/react-native-video.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/react-native-webview/android/react-native-webview.iml" filepath="$PROJECT_DIR$/../node_modules/react-native-webview/android/react-native-webview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/unimodules-barcode-scanner-interface/android/unimodules-barcode-scanner-interface.iml" filepath="$PROJECT_DIR$/../node_modules/unimodules-barcode-scanner-interface/android/unimodules-barcode-scanner-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/unimodules-camera-interface/android/unimodules-camera-interface.iml" filepath="$PROJECT_DIR$/../node_modules/unimodules-camera-interface/android/unimodules-camera-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/unimodules-constants-interface/android/unimodules-constants-interface.iml" filepath="$PROJECT_DIR$/../node_modules/unimodules-constants-interface/android/unimodules-constants-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/@unimodules/core/android/unimodules-core.iml" filepath="$PROJECT_DIR$/../node_modules/@unimodules/core/android/unimodules-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/unimodules-face-detector-interface/android/unimodules-face-detector-interface.iml" filepath="$PROJECT_DIR$/../node_modules/unimodules-face-detector-interface/android/unimodules-face-detector-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/unimodules-file-system-interface/android/unimodules-file-system-interface.iml" filepath="$PROJECT_DIR$/../node_modules/unimodules-file-system-interface/android/unimodules-file-system-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/unimodules-font-interface/android/unimodules-font-interface.iml" filepath="$PROJECT_DIR$/../node_modules/unimodules-font-interface/android/unimodules-font-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/unimodules-image-loader-interface/android/unimodules-image-loader-interface.iml" filepath="$PROJECT_DIR$/../node_modules/unimodules-image-loader-interface/android/unimodules-image-loader-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/unimodules-permissions-interface/android/unimodules-permissions-interface.iml" filepath="$PROJECT_DIR$/../node_modules/unimodules-permissions-interface/android/unimodules-permissions-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/@unimodules/react-native-adapter/android/unimodules-react-native-adapter.iml" filepath="$PROJECT_DIR$/../node_modules/@unimodules/react-native-adapter/android/unimodules-react-native-adapter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/unimodules-sensors-interface/android/unimodules-sensors-interface.iml" filepath="$PROJECT_DIR$/../node_modules/unimodules-sensors-interface/android/unimodules-sensors-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/unimodules-task-manager-interface/android/unimodules-task-manager-interface.iml" filepath="$PROJECT_DIR$/../node_modules/unimodules-task-manager-interface/android/unimodules-task-manager-interface.iml" />
+    </modules>
+  </component>
+</project>

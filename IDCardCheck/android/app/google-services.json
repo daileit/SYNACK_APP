@@ -1,0 +1,71 @@
+{
+  "project_info": {
+    "project_number": "625832227097",
+    "firebase_url": "https://tripu-44209.firebaseio.com",
+    "project_id": "tripu-44209",
+    "storage_bucket": "tripu-44209.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625832227097:android:c73692319d34a1c1",
+        "android_client_info": {
+          "package_name": "com.cmnd.check"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "625832227097-urcnfquekqv1gum38539jnsfuje6opdn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cmnd.check",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "625832227097-jh0l29b0m6ajo2u52672g6kvu1cpvf3g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cmnd.check",
+            "certificate_hash": "f4fbb5a8a1db69a0ce0c2ffd73f2c478ae0f7adc"
+          }
+        },
+        {
+          "client_id": "625832227097-fpfku0ldkt1pnjl63b7p9vda18ejdt3h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cmnd.check",
+            "certificate_hash": "d57c1bf5c8216fe56e998703ef3b873ceda4d19b"
+          }
+        },
+        {
+          "client_id": "625832227097-pj5al95ruisjd21bl78qnhdrjkrj7iks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDgtGO6cFitCM3MKWpveC5Qz7BH71YbHU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "625832227097-pj5al95ruisjd21bl78qnhdrjkrj7iks.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "625832227097-6khtf6i0ovccr6aa0dc0n2j6t9pr0lvk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dps.tripuEnt"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
