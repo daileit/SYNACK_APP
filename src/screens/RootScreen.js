@@ -68,6 +68,9 @@ class RootScreen extends Component {
         // Utils.goscreen(this, 'sc_Transfer', { typePayment: 2 });
         // Utils.goscreen(this, 'sc_OnBoarding');
         // FingerScanModule.showText('2222222',FingerScanModule.LENGTH_LONG);
+        console.log( 'xxx',isNaN(parseInt("a")));
+        console.log(parseInt("a"));
+
     };
 
 

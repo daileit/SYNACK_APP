@@ -76,7 +76,9 @@ class Home extends Component {
                     titleText={RootLang.lang.Home}
                     componentLeft={
                         <TouchableOpacity onPress={this.onUserClick}>
-                            <Image source={{ uri: ROOTGlobal.dataUser.picture.data.url }} style={nstyles.nAva35} />
+                            {
+                                ROOTGlobal.dataUser.picture ? <Image source={{ uri: ROOTGlobal.dataUser.picture.data.url }} style={nstyles.nAva35} /> : null
+                            }
                         </TouchableOpacity>
                     }
                     iconRight={Countrys[RootLang._keys]}

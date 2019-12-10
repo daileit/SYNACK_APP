@@ -36,6 +36,7 @@ export default class AvatarUpload extends Component {
             //-data local
             videoData: undefined,
             fingerprint: undefined,
+            fingerprint2: undefined,
             isLoading1: false,
             isLoading2: false,
             status1: '',
@@ -99,8 +100,12 @@ export default class AvatarUpload extends Component {
     onScanFinger = () => {
         //--tam thời để chọn ảnh, sau khi găn module thì tự lấy theo hình trả về
         response = async (item) => {
-            this.setState({ videoData: item.uri, isLoading2: true });
-            let res = await apiUploadFinger(item,appConfig.domain88 + 'app_finger_result');
+            if (item.iscancel)
+                return;
+            ROOTGlobal['finger1'] = undefined;
+            item.uri = await Utils.resizeImg(item.uri, item.height, item.width, item.width > 500 ? 0.2 : 1);
+            this.setState({ fingerprint: item.uri, isLoading2: true });
+            let res = await apiUploadFinger(item, appConfig.domain88 + 'app_get_finger');
             let tempURI = item.uri;
             let status2 = 'Valid';
             if (res.error || !res) {
@@ -108,10 +113,10 @@ export default class AvatarUpload extends Component {
                 tempURI = undefined;
                 Utils.showMsgBoxOK(this, 'Vân tay không hợp lệ', 'Vui lòng chọn ảnh vân tay của bạn')
             } else {
-                // ROOTGlobal['fingerResult'] = res.stt;
-                ROOTGlobal['fingerUri']= item.uri;
+                ROOTGlobal['fingerResult'] = res.stt;
+                ROOTGlobal['fingerUri'] = item.uri;
             }
-            this.setState({ videoData: tempURI, isLoading2: false, status2 });
+            this.setState({ fingerprint: tempURI, isLoading2: false, status2 });
             console.log('onResponse4xxx:', res);
 
         };
@@ -126,12 +131,55 @@ export default class AvatarUpload extends Component {
         //--End dialog media
     }
 
+    onScanFinger2 = () => {
+        //--tam thời để chọn ảnh, sau khi găn module thì tự lấy theo hình trả về
+        response = async (items) => {
+            if (items.iscancel)
+                return;
+            if (items.length == 1)
+                return;
+            let item1 = items[0];
+            item1.uri = await Utils.resizeImg(item1.uri, item1.height, item1.width, item1.width > 500 ? 0.2 : 1);
+            let item2 = items[1];
+            item2.uri = await Utils.resizeImg(item2.uri, item2.height, item2.width, item2.width > 500 ? 0.2 : 1);
+            ROOTGlobal['finger1'] = item1.uri;
+            this.setState({ fingerprint: item2.uri, isLoading2: true });
+            let res = await apiUploadFinger(item2, item1);
+            let status2 = 'Valid';
+            if (res.error || !res) {
+                status2 = 'Invalid';
+                Utils.showMsgBoxOK(this, 'Vân tay không hợp lệ', 'Vui lòng chọn ảnh vân tay của bạn')
+            } else {
+                ROOTGlobal['fingerResult'] = res.stt;
+                ROOTGlobal['fingerUri'] = item2.uri;
+            }
+            this.setState({ isLoading2: false, status2 });
+            console.log('onResponse5xxx:', res);
+        };
+        let options = {
+            assetType: 'Photos',//All,Videos,Photos - default
+            multi: true,// chọn 1 or nhiều item
+            response, // callback giá trị trả về khi có chọn item
+            limitCheck: 2, //gioi han sl media chon: -1 la khong co gioi han, >-1 la gioi han sl =  limitCheck
+            groupTypes: 'All'
+        };
+        Utils.goscreen(this, 'Modal_MediaPicker', options);
+        //--End dialog media
+    }
+
     onNext = async () => {
+        const { isLoading1, isLoading2, videoData, fingerprint } = this.state;
+        if (!isLoading1 && videoData) {
+            Utils.goscreen(this, 'scResultCheck', {});
+            return;
+        }
+        Utils.showMsgBoxOK(this, 'Cảnh báo', 'Vui lòng nhập thông tin xác thực đầy đủ trước khi tiếp tục');
+
         // if (!this.state.videoData) {
         //     Utils.showMsgBoxOK(this, 'Cảnh báo', 'Vui lòng ghi hình khuôn mặt')
         //     return;
         // }
-        Utils.goscreen(this, 'scResultCheck', {});
+        // Utils.goscreen(this, 'scResultCheck', {});
     }
 
     render() {
@@ -156,6 +204,10 @@ export default class AvatarUpload extends Component {
                             <Text style={{ textAlign: 'center', marginHorizontal: '15%', marginVertical: '10%' }}>
                                 {RootLang.lang.Pleasesend_face}
                             </Text>
+                            <TouchableOpacity style={{ opacity: 0.5, padding: 5, paddingHorizontal: 10, alignItems: 'center' }}
+                                onPress={this.onScanFinger2}>
+                                <Text>DEV MODE</Text>
+                            </TouchableOpacity>
                             {/* Khung chon Avatar + Fingerprint */}
                             <View style={{
                                 flexDirection: 'row', justifyContent: 'center', alignItems: 'center',

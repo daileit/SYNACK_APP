@@ -406,7 +406,7 @@ export default class RecordVideoCus1 extends Component {
     let heightCrop = widthCrop * 4.4 / 3;
 
     let tempX = width * 0.08;
-    let tempY = height - height * 0.35 - heightCrop;
+    let tempY = height - height * 0.36 - heightCrop;
 
     if (Platform.OS == 'android') {
       widthCrop = width - width * 0.42;

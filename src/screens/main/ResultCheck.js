@@ -15,6 +15,7 @@ import { RootLang } from '../../app/data/locales';
 import { apiGetKQORC, apiGetKQFace, apiGetKQTemplate, apiGetKQFinger } from '../../apis/apiCMND';
 import { appConfig } from '../../app/Config';
 import { ROOTGlobal } from '../../app/data/dataGlobal';
+import moment, { now } from 'moment';
 
 
 const stResultCheck = StyleSheet.create({
@@ -59,6 +60,9 @@ const stResultCheck = StyleSheet.create({
         marginLeft: 20
     }
 });
+
+const arrMaTinh = ['36', '04', '17', '08', '25', '19', '20', '08', '31', '24', '06', '33', '24', '30', '07', '16', '33', '34', '16', '15', '01', '23', '23', '26', '02', '07',
+    '13', '35', '16', '22', '27', '11', '09', '18', '38', '14', '21', '12', '03', '10', '32', '36', '05', '28', '29', '26', '37', '15', '38', '23', '09'];
 
 export default class ResultCheck extends Component {
     constructor(props) {
@@ -133,7 +137,33 @@ export default class ResultCheck extends Component {
         Utils.goscreen(this, 'scHome');
     }
 
+    checkIDNum = (val = '') => {
+        val = val.trim();
+        if (val.length != 9 && val.length != 12) // check có đủ 9 sô CMND, 12 số với CCCD
+            return false;
+        for (let i = 0; i < val.length; i++) { // check có ký tự số ko
+            const item = val[i];
+            if (isNaN(parseInt(item)))
+                return false;
+        }
+        if (!arrMaTinh.includes(val.substr(0, 2)))
+            return false;
+        return true;
+    }
+
+    checkBirday = (val = '') => {
+        val = val.trim();
+        val = moment(val, 'DD-MM-YYYY').format('YYYY-MM-DD');
+        val = new Date(val);
+        val.setFullYear(val.getFullYear() + 16, val.getMonth() + 1);
+        let tempDateNow = new Date();
+        return val <= tempDateNow;
+    }
+
     render() {
+        let facePer = parseFloat(ROOTGlobal['facedata']);
+        let fingerPer = parseFloat(ROOTGlobal['fingerResult']);
+
         return (
             // ncontainerX support iPhoneX, ncontainer + nfooter mới sp iphoneX 
             <View style={nstyles.ncontainerX}>
@@ -173,7 +203,8 @@ export default class ResultCheck extends Component {
                                             this.state.indexFocus != 0 ? null :
                                                 <>
                                                     <View style={stResultCheck.textContainDetail}>
-                                                        <Text>{RootLang.lang.IDnumber}</Text>
+                                                        <Text>{RootLang.lang.IDnumber} {this.checkIDNum(this.state.dataORC.idn) ? null :
+                                                            <Text style={{ color: 'red' }}>Invalid</Text>}</Text>
                                                         <Text style={stResultCheck.textInfoCard}>{this.state.dataORC.idn}</Text>
                                                     </View>
                                                     <View style={stResultCheck.textContainDetail}>
@@ -181,7 +212,8 @@ export default class ResultCheck extends Component {
                                                         <Text style={stResultCheck.textInfoCard}>{this.state.dataORC.name}</Text>
                                                     </View>
                                                     <View style={stResultCheck.textContainDetail}>
-                                                        <Text>{RootLang.lang.Birthday}</Text>
+                                                        <Text>{RootLang.lang.Birthday} {this.checkBirday(this.state.dataORC.birth) ? null :
+                                                            <Text style={{ color: 'red' }}>Invalid</Text>}</Text>
                                                         <Text style={stResultCheck.textInfoCard}>{this.state.dataORC.birth}</Text>
                                                     </View>
                                                     <View style={stResultCheck.textContainDetail}>
@@ -200,12 +232,12 @@ export default class ResultCheck extends Component {
                                     <View style={stResultCheck.contentKhungKQ}>
                                         <TouchableOpacity activeOpacity={0.8} onPress={this.onShowKQ(1)} style={stResultCheck.bgrTitle}>
                                             <Text style={stResultCheck.textTitle}>{RootLang.lang.facedetect}</Text>
-                                            <Text style={stResultCheck.textPer}>{ROOTGlobal['facedata']}%</Text>
+                                            <Text style={[stResultCheck.textPer, facePer > 80 ? {} : { color: 'red' }]}>{facePer}%</Text>
                                         </TouchableOpacity>
                                         {
                                             this.state.indexFocus != 1 ? null :
                                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
-                                                    <Image source={{ uri: this.state.imgFaceResult }} style={stResultCheck.imgStyle} resizeMode='contain' />
+                                                    <Image source={{ uri: appConfig.domain88 + 'app_face_result?' + now() }} style={stResultCheck.imgStyle} resizeMode='contain' />
                                                     <Image source={{ uri: ROOTGlobal['faceUri'] }} style={stResultCheck.imgStyle} resizeMode='contain' />
                                                 </View>
                                         }
@@ -215,13 +247,13 @@ export default class ResultCheck extends Component {
                                     <View style={stResultCheck.contentKhungKQ}>
                                         <TouchableOpacity activeOpacity={0.8} onPress={this.onShowKQ(2)} style={stResultCheck.bgrTitle}>
                                             <Text style={stResultCheck.textTitle}>{RootLang.lang.Fingerprint_result}</Text>
-                                            <Text style={stResultCheck.textPer}>{ROOTGlobal['fingerResult']}%</Text>
+                                            <Text style={[stResultCheck.textPer, facePer > 60 ? {} : { color: 'red' }]}>{fingerPer}%</Text>
                                         </TouchableOpacity>
                                         {
                                             this.state.indexFocus != 2 ? null :
                                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
+                                                    <Image source={{ uri: ROOTGlobal['finger1'] ? ROOTGlobal['finger1'] : (appConfig.domain88 + 'app_get_finger?' + now()) }} style={stResultCheck.imgStyle} resizeMode='contain' />
                                                     <Image source={{ uri: ROOTGlobal['fingerUri'] }} style={stResultCheck.imgStyle} resizeMode='contain' />
-                                                    <Image source={{ uri: appConfig.domain88 + 'app_finger_result' }} style={stResultCheck.imgStyle} resizeMode='contain' />
                                                 </View>
                                         }
                                     </View>
@@ -233,7 +265,7 @@ export default class ResultCheck extends Component {
                                         <Text style={stResultCheck.textTitle}>{RootLang.lang.Templatecheck}</Text>
                                         <Text style={stResultCheck.textPer}>--</Text>
                                     </TouchableOpacity>
-                                    <Text style={[stResultCheck.textPer, { textAlign: 'center', margin: 4, marginHorizontal: 8 }]}>{ROOTGlobal['dataTemplate']}</Text>
+                                    <Text style={[stResultCheck.textPer, { textAlign: 'center', margin: 4, marginHorizontal: 8 }]}>{appConfig.domain88 + 'app_template_result?' + now()}</Text>
                                     {
                                         this.state.indexFocus != 3 ? null :
                                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>

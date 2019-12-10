@@ -52,8 +52,11 @@ export default class Settings extends Component {
                     nthis={this} />
                 {/* BODY */}
                 <View style={nstyles.nbody}>
-                    
-                    
+                    <View style={[nstyles.nrow]}>
+                        {/* <Text>Mode:</Text>
+                        <Text>DEBUG</Text>
+                        <Text>RELEASE</Text> */}
+                    </View>
                 </View>
             </View>
         );

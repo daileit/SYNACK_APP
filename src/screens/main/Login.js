@@ -113,7 +113,10 @@ export default class Login extends Component {
     }
 
     onLogin = () => {
-        Utils.showMsgBoxOK(this, RootLang.lang.Commingsoon);
+        setTimeout(() => {
+            Utils.goscreen(this, 'sw_Main');
+        }, 1000);
+        // Utils.showMsgBoxOK(this, RootLang.lang.Commingsoon);
     }
 
     onLoginFB = (optionsCus = {}) => {

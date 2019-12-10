@@ -3,19 +3,22 @@ import { appConfig } from '../app/Config';
 const PREFIX = 'api/';
 
 
-async function apiUploadFront(dataImg, apiKey = 'app_upload_front', domainNew = appConfig.domain, dataImg2 = null) {
+async function apiUploadFront(dataImg, apiKey = 'app_upload_front', domainNew = appConfig.domain, dataImg2 = undefined) {
     const { uri, codec = "jpg" } = dataImg;
     let dataBody = new FormData();
-    dataBody.append("image", {
+    let nameParam = "image";
+    if (dataImg2)
+        nameParam = "image1";
+    dataBody.append(nameParam, {
         name: "face" + '_' + Date.now(),
         type: 'image/' + codec,
         uri
     });
-    if (dataImg2 != null) {
-        dataBody.append("image", {
+    if (dataImg2) {
+        dataBody.append("image2", {
             name: "face" + '_' + Date.now(),
             type: 'image/jpg',
-            uri: dataImg2 
+            uri: dataImg2
         });
     }
     // Utils.nlog('xxx1:', dataBody);

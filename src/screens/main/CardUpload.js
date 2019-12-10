@@ -73,7 +73,6 @@ export default class CardUpload extends Component {
 
     onNext = () => {
         const { isLoading1, isLoading2, imgBack, imgFront } = this.state;
-        Utils.goscreen(this, 'scAvatarUpload', {});
         if (this.typeCheck == 1) { //xử lý face, orc, finger check
             if (!isLoading1 && !isLoading2 && imgBack && imgFront) {
                 Utils.goscreen(this, 'scAvatarUpload', {});
@@ -81,27 +80,36 @@ export default class CardUpload extends Component {
             }
             Utils.showMsgBoxOK(this, 'Cảnh báo', 'Vui lòng xác thực thông tin đầy đủ trước khi tiếp tục');
         } else { //xử lý template check
-            Utils.goscreen(this, 'scResultCheck', { typeCheck: 2 });
+            if (!isLoading1 && imgFront) {
+                Utils.goscreen(this, 'scResultCheck', { typeCheck: 2 });
+                return;
+            }
+            Utils.showMsgBoxOK(this, 'Cảnh báo', 'Vui lòng nhập thông tin đầy đủ trước khi tiếp tục');
         }
     }
 
     onResponse1 = async (item) => {
-        this.setState({ imgFront: item.uri, isLoading1: true });
-        let res = {};
-        if (this.typeCheck == 1)
-            res = await apiUploadFront(item);
-        else
-            res = await apiUploadTemplate(item);
-        let tempURI = item.uri;
-        let status1 = 'Valid'
-        if (!res || res.error) {
-            status1 = 'Invalid'
-            tempURI = undefined;
-            Utils.showMsgBoxOK(this, 'Hình ảnh không hợp lệ', 'Vui lòng chụp mặt trước CMND trong khung xanh')
-        } else
-            ROOTGlobal['dataTemplate'] = res.stt;
-        this.setState({ imgFront: tempURI, isLoading1: false, status1 });
-        console.log('onResponse1xxx:', res);
+        try {
+            this.setState({ imgFront: item.uri, isLoading1: true });
+            console.log('onResponse1xxxURI123:', item);
+            let res = {};
+            if (this.typeCheck == 1)
+                res = await apiUploadFront(item);
+            else
+                res = await apiUploadTemplate(item);
+            let tempURI = item.uri;
+            let status1 = 'Valid'
+            if (!res || res.error) {
+                status1 = 'Invalid'
+                tempURI = undefined;
+                Utils.showMsgBoxOK(this, 'Hình ảnh không hợp lệ', 'Vui lòng chụp mặt trước CMND trong khung xanh');
+            } else
+                ROOTGlobal['dataTemplate'] = res.stt;
+            this.setState({ imgFront: tempURI, isLoading1: false, status1 });
+            console.log('onResponse1xxx:', res);
+        } catch (error) {
+            Utils.showMsgBoxOK(this, 'Hình ảnh không hợp lệ', 'Vui lòng chọn lại');
+        }
     }
 
     onResponse2 = async (item) => {

@@ -43,7 +43,7 @@ async function post_api(strUrl, strBody = '', showMsg = true, domainOption = app
             Alert.alert('Bảo mật', 'Không tồn tại token người dùng');
         return -2;
     }
-  
+
     try {
         const response = await fetch(domainOption + strUrl,
             {
@@ -55,7 +55,7 @@ async function post_api(strUrl, strBody = '', showMsg = true, domainOption = app
                 body: strBody
             });
         const res = await response.json();
-        nlog('xxx2:',domainOption + strUrl, res);
+        nlog('xxx2:', domainOption + strUrl, res);
         if (res.ExceptionMessage != undefined) { // edit tuỳ từng object api
             nlog('[API]Lỗi API:', res);
             return -3;
@@ -455,8 +455,9 @@ function formatPhoneCode(phoneCode) {
     return value;
 }
 
-function formatDate(dates, format, location = RootLang._keys) {
-    dates = new Date(dates.toString());
+function formatDate(dates, format, location = RootLang._keys, isMoment = false) {
+    if (!isMoment)
+        dates = new Date(dates.toString());
     return Moment(dates).format(format);
 }
 
@@ -632,7 +633,25 @@ async function parseBase64(uri, height, width, downSize = 0.3) {
     } catch (cropError) {
         return '';
     };
+}
 
+
+async function resizeImg(uri, height, width, downSize = 0.3) {
+    try {
+        let uriReturn = uri;
+        uriReturn = await ImageEditor.cropImage(
+            uri,
+            {
+                offset: { x: 0, y: 0 },
+                size: { width, height },
+                displaySize: { width: width * downSize, height: height * downSize },
+                resizeMode: 'contain'
+            }
+        );
+        return uriReturn;
+    } catch (cropError) {
+        return '';
+    };
 }
 // random UUID/GUID
 // function uuidv4() {
@@ -688,5 +707,5 @@ export default {
     resTrue, resFalse, resEmpty, toggleDrawer, handleSelectedDate, ngetStore, nsetStore, ngetParam,
     post_apiBear, get_apiBearer, formatPhoneCode, datesDiff, formatDate, sformat,
     openUrl, objToQueryString, decodeHTMLEntities, capitalize, connectRedux, isNullOrUndefined, isNullOrEmpty,
-    formatDateApp, cloneData, parseBase64, formatMoney1, uuidv4, setMomentLocale, openCallNumber, onShare
+    formatDateApp, cloneData, parseBase64, formatMoney1, uuidv4, setMomentLocale, openCallNumber, onShare, resizeImg
 };
