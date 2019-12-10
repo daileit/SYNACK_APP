@@ -154,14 +154,15 @@ export default class Login extends Component {
                     style={[stLogin.contentInput, { marginTop: 10 }]}
                     text={RootLang.lang.Login.toUpperCase()}
                 />
-                <ButtonCom
-                    onPress={this.onLoginFB}
-                    Linear={true}
-                    icon={Images.icFB}
-                    colorChange={[colors.blue, colors.waterBlue]}
-                    style={[stLogin.contentInput, { marginTop: 10, marginBottom: '40%' }]}
-                    text={RootLang.lang.Loginwithfacebook.toUpperCase()}
-                />
+                    <ButtonCom
+                        onPress={this.onLoginFB}
+                        Linear={true}
+                        icon={Images.icFB}
+                        colorChange={[colors.blue, colors.waterBlue]}
+                        style={[stLogin.contentInput, { marginTop: 10}]}
+                        text={RootLang.lang.Loginwithfacebook.toUpperCase()}
+                    />
+                <View style={{height: '20%'}}/>
             </ImageBackground>
         );
     }

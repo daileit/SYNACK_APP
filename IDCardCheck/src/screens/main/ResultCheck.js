@@ -140,6 +140,12 @@ export default class ResultCheck extends Component {
                 {/* Header  */}
                 <HeaderCom
                     titleText={RootLang.lang.Confirm}
+                    onPressLeft={() => {
+                        if (this.typeCheck == 1)
+                            Utils.goback(this);
+                        else
+                            Utils.goscreen(this, 'scCardCheck');
+                    }}
                     nthis={this} />
                 {/* BODY */}
                 <ScrollView>
@@ -199,7 +205,7 @@ export default class ResultCheck extends Component {
                                         {
                                             this.state.indexFocus != 1 ? null :
                                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
-                                                    <Image source={{uri: this.state.imgFaceResult}} style={stResultCheck.imgStyle} resizeMode='contain' />
+                                                    <Image source={{ uri: this.state.imgFaceResult }} style={stResultCheck.imgStyle} resizeMode='contain' />
                                                     <Image source={{ uri: ROOTGlobal['faceUri'] }} style={stResultCheck.imgStyle} resizeMode='contain' />
                                                 </View>
                                         }
@@ -209,13 +215,13 @@ export default class ResultCheck extends Component {
                                     <View style={stResultCheck.contentKhungKQ}>
                                         <TouchableOpacity activeOpacity={0.8} onPress={this.onShowKQ(2)} style={stResultCheck.bgrTitle}>
                                             <Text style={stResultCheck.textTitle}>{RootLang.lang.Fingerprint_result}</Text>
-                                            <Text style={stResultCheck.textPer}>--</Text>
+                                            <Text style={stResultCheck.textPer}>{ROOTGlobal['fingerResult']}%</Text>
                                         </TouchableOpacity>
                                         {
                                             this.state.indexFocus != 2 ? null :
                                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
-                                                    <Image source={require('../../images/imgApp/CMNDTest.jpg')} style={stResultCheck.imgStyle} resizeMode='contain' />
-                                                    <Image source={require('../../images/imgApp/CMNDTest.jpg')} style={stResultCheck.imgStyle} resizeMode='contain' />
+                                                    <Image source={{ uri: ROOTGlobal['fingerUri'] }} style={stResultCheck.imgStyle} resizeMode='contain' />
+                                                    <Image source={{ uri: appConfig.domain88 + 'app_finger_result' }} style={stResultCheck.imgStyle} resizeMode='contain' />
                                                 </View>
                                         }
                                     </View>

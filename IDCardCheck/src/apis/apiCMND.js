@@ -3,7 +3,7 @@ import { appConfig } from '../app/Config';
 const PREFIX = 'api/';
 
 
-async function apiUploadFront(dataImg, apiKey = 'app_upload_front', domainNew = appConfig.domain) {
+async function apiUploadFront(dataImg, apiKey = 'app_upload_front', domainNew = appConfig.domain, dataImg2 = null) {
     const { uri, codec = "jpg" } = dataImg;
     let dataBody = new FormData();
     dataBody.append("image", {
@@ -11,6 +11,13 @@ async function apiUploadFront(dataImg, apiKey = 'app_upload_front', domainNew = 
         type: 'image/' + codec,
         uri
     });
+    if (dataImg2 != null) {
+        dataBody.append("image", {
+            name: "face" + '_' + Date.now(),
+            type: 'image/jpg',
+            uri: dataImg2 
+        });
+    }
     // Utils.nlog('xxx1:', dataBody);
 
     try {
@@ -24,7 +31,7 @@ async function apiUploadFront(dataImg, apiKey = 'app_upload_front', domainNew = 
         const res = await response.json();
         return res;
     } catch (e) {
-        console.log('eeeeeee:',e);
+        console.log('eeeeeee:', e);
         return false;
     }
     //----
@@ -42,8 +49,8 @@ async function apiUploadAvatar(data) {
     return res;
 }
 
-async function apiUploadFinger(data) {
-    let res = await apiUploadFront(data, 'app_upload_finger', appConfig.domain88);
+async function apiUploadFinger(data1, data2) {
+    let res = await apiUploadFront(data1, 'app_upload_finger', appConfig.domain88, data2);
     return res;
 }
 

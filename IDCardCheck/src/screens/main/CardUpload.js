@@ -35,7 +35,9 @@ export default class CardUpload extends Component {
             imgFront: undefined,
             imgBack: undefined,
             isLoading1: false,
-            isLoading2: false
+            isLoading2: false,
+            status1: '',
+            status2: ''
         }
     }
 
@@ -71,6 +73,7 @@ export default class CardUpload extends Component {
 
     onNext = () => {
         const { isLoading1, isLoading2, imgBack, imgFront } = this.state;
+        Utils.goscreen(this, 'scAvatarUpload', {});
         if (this.typeCheck == 1) { //xử lý face, orc, finger check
             if (!isLoading1 && !isLoading2 && imgBack && imgFront) {
                 Utils.goscreen(this, 'scAvatarUpload', {});
@@ -78,12 +81,9 @@ export default class CardUpload extends Component {
             }
             Utils.showMsgBoxOK(this, 'Cảnh báo', 'Vui lòng xác thực thông tin đầy đủ trước khi tiếp tục');
         } else { //xử lý template check
-
             Utils.goscreen(this, 'scResultCheck', { typeCheck: 2 });
         }
-
     }
-
 
     onResponse1 = async (item) => {
         this.setState({ imgFront: item.uri, isLoading1: true });
@@ -93,12 +93,14 @@ export default class CardUpload extends Component {
         else
             res = await apiUploadTemplate(item);
         let tempURI = item.uri;
-        if (res.error) {
+        let status1 = 'Valid'
+        if (!res || res.error) {
+            status1 = 'Invalid'
             tempURI = undefined;
             Utils.showMsgBoxOK(this, 'Hình ảnh không hợp lệ', 'Vui lòng chụp mặt trước CMND trong khung xanh')
         } else
             ROOTGlobal['dataTemplate'] = res.stt;
-        this.setState({ imgFront: tempURI, isLoading1: false });
+        this.setState({ imgFront: tempURI, isLoading1: false, status1 });
         console.log('onResponse1xxx:', res);
     }
 
@@ -106,11 +108,13 @@ export default class CardUpload extends Component {
         this.setState({ imgBack: item.uri, isLoading2: true });
         let res = await apiUploadBack(item);
         let tempURI = item.uri;
-        if (res.error) {
+        let status2 = 'Valid'
+        if (!res || res.error) {
+            status2 = 'Invalid'
             tempURI = undefined;
             Utils.showMsgBoxOK(this, 'Hình ảnh không hợp lệ', 'Vui lòng chụp mặt sau CMND trong khung xanh')
         }
-        this.setState({ imgBack: tempURI, isLoading2: false });
+        this.setState({ imgBack: tempURI, isLoading2: false, status2 });
         console.log('onResponse2xxx:', res);
     }
 
@@ -169,6 +173,8 @@ export default class CardUpload extends Component {
                                     {this.state.isLoading1 ? <ActivityIndicator color={colors.greenyBlue} /> : null}
                                     <Text style={{ fontWeight: 'bold', marginLeft: 5 }}>{RootLang.lang.Frontphoto}</Text>
                                 </View>
+                                <Text style={{ color: this.state.status1 == 'Invalid' ? 'red' : colors.colorGreen, fontWeight: '600', fontStyle: 'italic', marginTop: 5 }}>
+                                    {this.state.status1}</Text>
                             </View>
                             {
                                 this.typeCheck == 2 ? null :
@@ -187,6 +193,8 @@ export default class CardUpload extends Component {
                                                 {this.state.isLoading2 ? <ActivityIndicator color={colors.greenyBlue} /> : null}
                                                 <Text style={{ fontWeight: 'bold', marginLeft: 5 }}>{RootLang.lang.Backphoto}</Text>
                                             </View>
+                                            <Text style={{ color: this.state.status2 == 'Invalid' ? 'red' : colors.colorGreen, fontWeight: '600', fontStyle: 'italic', marginTop: 5 }}>
+                                                {this.state.status2}</Text>
                                         </View>
                                     </>
                             }

@@ -13,8 +13,9 @@ import { colors } from '../../styles';
 import ButtonCom from '../../components/Button/ButtonCom';
 import { uploadFace } from '../../apis/apiapp';
 import { RootLang } from '../../app/data/locales';
-import { apiUploadAvatar } from '../../apis/apiCMND';
+import { apiUploadAvatar, apiUploadFinger } from '../../apis/apiCMND';
 import { ROOTGlobal } from '../../app/data/dataGlobal';
+import { appConfig } from '../../app/Config';
 
 
 const stAvatarUpload = StyleSheet.create({
@@ -37,6 +38,8 @@ export default class AvatarUpload extends Component {
             fingerprint: undefined,
             isLoading1: false,
             isLoading2: false,
+            status1: '',
+            status2: ''
 
         }
     }
@@ -68,14 +71,16 @@ export default class AvatarUpload extends Component {
             this.setState({ videoData: item.uri, isLoading1: true });
             let res = await apiUploadAvatar(item);
             let tempURI = item.uri;
+            let status1 = 'Valid';
             if (res.error || !res) {
+                status1 = 'Invalid';
                 tempURI = undefined;
                 Utils.showMsgBoxOK(this, 'Ảnh chụp không hợp lệ', 'Vui lòng chụp ảnh khuôn mặt trong khung xanh')
-            }else{
+            } else {
                 ROOTGlobal['facedata'] = res.stt;
                 ROOTGlobal['faceUri'] = item.uri;
             }
-            this.setState({ videoData: tempURI, isLoading1: false });
+            this.setState({ videoData: tempURI, isLoading1: false, status1 });
             console.log('onResponse3xxx:', res);
 
         };
@@ -94,15 +99,20 @@ export default class AvatarUpload extends Component {
     onScanFinger = () => {
         //--tam thời để chọn ảnh, sau khi găn module thì tự lấy theo hình trả về
         response = async (item) => {
-            // this.setState({ fingerprint: item.uri, isLoading1: true });
-            // let res = await apiUploadAvatar(item);
-            // let tempURI = item.uri;
-            // if (res.error) {
-            //     tempURI = undefined;
-            //     Utils.showMsgBoxOK(this, 'Ảnh chụp không hợp lệ', 'Vui lòng chụp ảnh khuôn mặt trong khung xanh')
-            // }
-            // this.setState({ fingerprint: tempURI, isLoading1: false });
-            // console.log('onResponse3xxx:', res);
+            this.setState({ videoData: item.uri, isLoading2: true });
+            let res = await apiUploadFinger(item,appConfig.domain88 + 'app_finger_result');
+            let tempURI = item.uri;
+            let status2 = 'Valid';
+            if (res.error || !res) {
+                status2 = 'Invalid';
+                tempURI = undefined;
+                Utils.showMsgBoxOK(this, 'Vân tay không hợp lệ', 'Vui lòng chọn ảnh vân tay của bạn')
+            } else {
+                // ROOTGlobal['fingerResult'] = res.stt;
+                ROOTGlobal['fingerUri']= item.uri;
+            }
+            this.setState({ videoData: tempURI, isLoading2: false, status2 });
+            console.log('onResponse4xxx:', res);
 
         };
         let options = {
@@ -164,6 +174,9 @@ export default class AvatarUpload extends Component {
                                         {this.state.isLoading1 ? <ActivityIndicator color={colors.greenyBlue} /> : null}
                                         <Text style={{ fontWeight: 'bold', marginLeft: 5 }}>{RootLang.lang.Take_faces}</Text>
                                     </View>
+                                    <Text style={{ color: this.state.status1 == 'Invalid' ? 'red' : colors.colorGreen, fontWeight: '600', fontStyle: 'italic', marginTop: 5 }}>
+                                        {this.state.status1}</Text>
+
                                 </View>
 
 
@@ -180,6 +193,8 @@ export default class AvatarUpload extends Component {
                                         {this.state.isLoading2 ? <ActivityIndicator color={colors.greenyBlue} /> : null}
                                         <Text style={{ fontWeight: 'bold', marginLeft: 5 }}>{RootLang.lang.Fingerprintscan}</Text>
                                     </View>
+                                    <Text style={{ color: this.state.status2 == 'Invalid' ? 'red' : colors.colorGreen, fontWeight: '600', fontStyle: 'italic', marginTop: 5 }}>
+                                        {this.state.status2}</Text>
                                 </View>
                             </View>
 

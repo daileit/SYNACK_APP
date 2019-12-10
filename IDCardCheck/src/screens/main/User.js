@@ -66,7 +66,7 @@ export default class User extends Component {
             <View style={nstyles.ncontainerX}>
                 {/* Header  */}
                 <HeaderCom
-                    titleText={'Thông tin tài khoản'}
+                    titleText={'User info'}
                     nthis={this} />
                 {/* BODY */}
                 <View style={nstyles.nbody}>
@@ -86,7 +86,7 @@ export default class User extends Component {
                         onPress={this.onLogout}
                         Linear={true}
                         colorChange={[colors.colorGrayIcon, colors.colorGrayIcon]}
-                        style={[stUser.contentInput, { marginTop: 10, marginBottom: '40%' }]}
+                        style={[stUser.contentInput, { marginTop: 10 }]}
                         text={'Logout'}
                     />
                 </View>
