@@ -45,7 +45,7 @@ import User from '../screens/main/User';
 const MainStack = createStackNavigator(
     {
         scHome: Home,
-        scCardCheck: AvatarUpload,
+        scCardCheck: CardUpload,
         scAvatarUpload: AvatarUpload,
         scResultCheck: ResultCheck,
         scInfoApp: InfoApp,

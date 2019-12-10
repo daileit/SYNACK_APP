@@ -113,17 +113,21 @@ export default class CardUpload extends Component {
     }
 
     onResponse2 = async (item) => {
-        this.setState({ imgBack: item.uri, isLoading2: true });
-        let res = await apiUploadBack(item);
-        let tempURI = item.uri;
-        let status2 = 'Valid'
-        if (!res || res.error) {
-            status2 = 'Invalid'
-            tempURI = undefined;
-            Utils.showMsgBoxOK(this, 'Hình ảnh không hợp lệ', 'Vui lòng chụp mặt sau CMND trong khung xanh')
+        try {
+            this.setState({ imgBack: item.uri, isLoading2: true });
+            let res = await apiUploadBack(item);
+            let tempURI = item.uri;
+            let status2 = 'Valid'
+            if (!res || res.error) {
+                status2 = 'Invalid'
+                tempURI = undefined;
+                Utils.showMsgBoxOK(this, 'Hình ảnh không hợp lệ', 'Vui lòng chụp mặt sau CMND trong khung xanh')
+            }
+            this.setState({ imgBack: tempURI, isLoading2: false, status2 });
+            console.log('onResponse2xxx:', res);
+        } catch (error) {
+            Utils.showMsgBoxOK(this, 'Hình ảnh không hợp lệ', 'Vui lòng chọn lại');
         }
-        this.setState({ imgBack: tempURI, isLoading2: false, status2 });
-        console.log('onResponse2xxx:', res);
     }
 
     onTakeCard = (isFront = true) => () => {

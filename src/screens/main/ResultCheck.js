@@ -247,7 +247,7 @@ export default class ResultCheck extends Component {
                                     <View style={stResultCheck.contentKhungKQ}>
                                         <TouchableOpacity activeOpacity={0.8} onPress={this.onShowKQ(2)} style={stResultCheck.bgrTitle}>
                                             <Text style={stResultCheck.textTitle}>{RootLang.lang.Fingerprint_result}</Text>
-                                            <Text style={[stResultCheck.textPer, facePer > 60 ? {} : { color: 'red' }]}>{fingerPer}%</Text>
+                                            <Text style={[stResultCheck.textPer, fingerPer > 60 ? {} : { color: 'red' }]}>{fingerPer}%</Text>
                                         </TouchableOpacity>
                                         {
                                             this.state.indexFocus != 2 ? null :

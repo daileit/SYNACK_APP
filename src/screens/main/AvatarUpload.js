@@ -138,6 +138,7 @@ export default class AvatarUpload extends Component {
                 return;
             if (items.length == 1)
                 return;
+            console.log('onResponse5xxx:', items);
             let item1 = items[0];
             item1.uri = await Utils.resizeImg(item1.uri, item1.height, item1.width, item1.width > 500 ? 0.2 : 1);
             let item2 = items[1];
